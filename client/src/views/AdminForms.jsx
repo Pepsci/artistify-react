@@ -6,6 +6,8 @@ import FormStyle from "./../components/form/FormStyle";
 import FormLabel from "./../components/form/FormLabel";
 import IconBack from "./../components/icon/IconBack";
 import { useParams } from "react-router-dom";
+import FormEditArtist from "../components/form/FormEditArtist";
+import FormAjoutArtist from "../components/form/FormAjoutArtist";
 
 // IMPORTANT NOTE :
 // Each child components below uses one single form for both update and create actions
@@ -13,25 +15,25 @@ import { useParams } from "react-router-dom";
 // ...
 
 const forms = {
-	artists: FormArtist,
-	albums: FormAlbum,
-	styles: FormStyle,
-	labels: FormLabel,
+  artists: FormArtist,
+  albums: FormAlbum,
+  styles: FormStyle,
+  labels: FormLabel,
 };
 
 export default function AdminForms() {
-	const params = useParams();
-	const { endpoint, id: resourceId, mode } = params;
-	const ActiveForm = forms[endpoint];
+  const params = useParams();
+  const { endpoint, id: resourceId, mode } = params;
+  const ActiveForm = forms[endpoint];
 
-	return !ActiveForm ? null : (
-		<div>
-			<h1 className="title">
-				<IconBack size="xs" />
-				{mode === "edit" ? "Edit" : "New"} {endpoint}
-			</h1>
-			<hr />
-			<ActiveForm mode={mode} _id={resourceId} />
-		</div>
-	);
+  return !ActiveForm ? null : (
+    <div>
+      <h1 className="title">
+        <IconBack size="xs" />
+        {mode === "edit" ? <FormEditArtist /> : <FormAjoutArtist />}
+      </h1>
+      <hr />
+      {/* <ActiveForm mode={mode} _id={resourceId} /> */}
+    </div>
+  );
 }
